@@ -9,10 +9,10 @@ import { SignUpToken } from "../SignUpToken.sol";
 import { IWorldID } from "../interfaces/IWorldID.sol";
 import { ByteHasher } from '../lib/ByteHasher.sol';
 
-/// @title WorldIDGatekeeper
+/// @title SignUpWorldIdGatekeeper
 /// @notice This contract allows to gatekeep MACI signups
 /// by requiring new voters to have a valid World ID
-contract WorldIDGatekeeper is SignUpGatekeeper, Ownable {
+contract SignUpWorldIdGatekeeper is SignUpGatekeeper, Ownable {
   using ByteHasher for bytes;
 
   /// @notice The address of the World ID Router contract that will be used for verifying proofs
@@ -57,7 +57,7 @@ contract WorldIDGatekeeper is SignUpGatekeeper, Ownable {
   function register(address _user, bytes memory _data) public override {
     if (maci != msg.sender) revert OnlyMACI();
     // Decode the given _data bytes
-    (address signal, uint256 root, uint256 nullifierHash, uint256[8] memory proof) = abi.decode(_data, (address, uint256, uint256, uint256[8]));
+    (uint256 root, uint256 nullifierHash, uint256[8] memory proof) = abi.decode(_data, (uint256, uint256, uint256[8]));
 
     // Make sure this person hasn't done this before
     if (nullifierHashes[nullifierHash]) revert AlreadyRegistered();
@@ -65,7 +65,7 @@ contract WorldIDGatekeeper is SignUpGatekeeper, Ownable {
     // Verify the provided proof is valid and the user is verified by World ID
     worldId.verifyProof(
       root,
-      abi.encodePacked(signal).hashToField(),
+      abi.encodePacked(_user).hashToField(),
       nullifierHash,
       externalNullifierHash,
       proof
