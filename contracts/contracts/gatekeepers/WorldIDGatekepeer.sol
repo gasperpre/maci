@@ -4,7 +4,6 @@ pragma solidity ^0.8.10;
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 
 import { SignUpGatekeeper } from "./SignUpGatekeeper.sol";
-import { SignUpToken } from "../SignUpToken.sol";
 
 import { IWorldID } from "../interfaces/IWorldID.sol";
 import { ByteHasher } from '../lib/ByteHasher.sol';
