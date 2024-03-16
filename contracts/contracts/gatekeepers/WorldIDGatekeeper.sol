@@ -64,6 +64,7 @@ contract WorldIDGatekeeper is SignUpGatekeeper, Ownable {
     // Verify the provided proof is valid and the user is verified by World ID
     worldId.verifyProof(
       root,
+      groupId,
       abi.encodePacked(_user).hashToField(),
       nullifierHash,
       externalNullifierHash,

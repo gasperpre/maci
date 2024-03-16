@@ -26,6 +26,7 @@ interface IWorldID {
     /// @custom:reverts string If the `proof` is invalid.
     function verifyProof(
         uint256 root,
+        uint256 groupId,
         uint256 signalHash,
         uint256 nullifierHash,
         uint256 externalNullifierHash,

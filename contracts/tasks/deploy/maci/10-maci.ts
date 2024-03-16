@@ -1,4 +1,4 @@
-import type { EASGatekeeper } from "../../../typechain-types";
+import type { EASGatekeeper, WorldIDGatekeeper } from "../../../typechain-types";
 
 import { ContractStorage } from "../../helpers/ContractStorage";
 import { Deployment } from "../../helpers/Deployment";
@@ -69,9 +69,9 @@ deployment
       stateTreeDepth,
     );
 
-    if (gatekeeper === EContracts.EASGatekeeper) {
-      const gatekeeperContract = await deployment.getContract<EASGatekeeper>({
-        name: EContracts.EASGatekeeper,
+    if (gatekeeper === EContracts.EASGatekeeper || gatekeeper === EContracts.WorldIDGatekeeper) {
+      const gatekeeperContract = await deployment.getContract<EASGatekeeper | WorldIDGatekeeper>({
+        name: gatekeeper,
         address: gatekeeperContractAddress,
       });
       const maciInstanceAddress = await maciContract.getAddress();
