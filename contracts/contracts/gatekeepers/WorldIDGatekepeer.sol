@@ -8,10 +8,10 @@ import { SignUpGatekeeper } from "./SignUpGatekeeper.sol";
 import { IWorldID } from "../interfaces/IWorldID.sol";
 import { ByteHasher } from '../lib/ByteHasher.sol';
 
-/// @title SignUpWorldIdGatekeeper
+/// @title WorldIDGatekeeper
 /// @notice This contract allows to gatekeep MACI signups
 /// by requiring new voters to have a valid World ID
-contract SignUpWorldIdGatekeeper is SignUpGatekeeper, Ownable {
+contract WorldIDGatekeeper is SignUpGatekeeper, Ownable {
   using ByteHasher for bytes;
 
   /// @notice The address of the World ID Router contract that will be used for verifying proofs

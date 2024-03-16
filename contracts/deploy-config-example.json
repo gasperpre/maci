@@ -15,13 +15,13 @@
     },
     "WorldIDGatekeeper": {
       "deploy": true,
-      "worldIDAddress":"0x42FF98C4E85212a5D31358ACbFe76a621b50fC02",
+      "worldIDAddress":"0x469449f251692e0779667583026b5a1e99512157",
       "appID": "app_staging_632c35d24a7e960c82df9e560328de0a",
       "action": "signup"
     },
     "MACI": {
       "stateTreeDepth": 10,
-      "gatekeeper": "EASGatekeeper"
+      "gatekeeper": "WorldIDGatekeeper"
     },
     "VkRegistry": {
       "stateTreeDepth": 10,
