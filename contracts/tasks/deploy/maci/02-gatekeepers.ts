@@ -17,17 +17,21 @@ deployment
 
     const freeForAllGatekeeperContractAddress = storage.getAddress(EContracts.FreeForAllGatekeeper, hre.network.name);
     const easGatekeeperContractAddress = storage.getAddress(EContracts.EASGatekeeper, hre.network.name);
+    const worldIDGatekeeperContractAddress = storage.getAddress(EContracts.WorldIDGatekeeper, hre.network.name);
     const deployFreeForAllGatekeeper = deployment.getDeployConfigField(EContracts.FreeForAllGatekeeper, "deploy");
     const deployEASGatekeeper = deployment.getDeployConfigField(EContracts.EASGatekeeper, "deploy");
+    const deployWorldIDGatekeeper = deployment.getDeployConfigField(EContracts.WorldIDGatekeeper, "deploy");
 
     const skipDeployFreeForAllGatekeeper = deployFreeForAllGatekeeper === false;
     const skipDeployEASGatekeeper = deployEASGatekeeper === false;
+    const skipDeployWorldIdGatekeeper = deployWorldIDGatekeeper === false;
 
     const canSkipDeploy =
       incremental &&
       (freeForAllGatekeeperContractAddress || skipDeployFreeForAllGatekeeper) &&
       (easGatekeeperContractAddress || skipDeployEASGatekeeper) &&
-      (!skipDeployFreeForAllGatekeeper || !skipDeployEASGatekeeper);
+      (worldIDGatekeeperContractAddress || skipDeployWorldIdGatekeeper) &&
+      (!skipDeployFreeForAllGatekeeper || !skipDeployEASGatekeeper || !skipDeployWorldIdGatekeeper);
 
     if (canSkipDeploy) {
       return;
@@ -65,6 +69,27 @@ deployment
         id: EContracts.EASGatekeeper,
         contract: easGatekeeperContract,
         args: [easAddress, attester, encodedSchema],
+        network: hre.network.name,
+      });
+    }
+
+    if (!skipDeployWorldIdGatekeeper && isSupportedNetwork) {
+      const worldIDAddress = deployment.getDeployConfigField<string>(EContracts.WorldIDGatekeeper, "worldIDAddress", true);
+      const appID = deployment.getDeployConfigField<string>(EContracts.WorldIDGatekeeper, "appID", true);
+      const action = deployment.getDeployConfigField<string>(EContracts.WorldIDGatekeeper, "action", true);
+
+      const worldIDGatekeeperContract = await deployment.deployContract(
+        EContracts.WorldIDGatekeeper,
+        deployer,
+        worldIDAddress,
+        appID,
+        action,
+      );
+
+      await storage.register({
+        id: EContracts.WorldIDGatekeeper,
+        contract: worldIDGatekeeperContract,
+        args: [worldIDAddress, appID, action],
         network: hre.network.name,
       });
     }

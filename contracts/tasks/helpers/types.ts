@@ -499,6 +499,7 @@ export enum EContracts {
   ConstantInitialVoiceCreditProxy = "ConstantInitialVoiceCreditProxy",
   FreeForAllGatekeeper = "FreeForAllGatekeeper",
   EASGatekeeper = "EASGatekeeper",
+  WorldIDGatekeeper = "WorldIDGatekeeper",
   Verifier = "Verifier",
   TopupCredit = "TopupCredit",
   MACI = "MACI",

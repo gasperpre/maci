@@ -8,10 +8,16 @@
       "deploy": false
     },
     "EASGatekeeper": {
-      "deploy": true,
+      "deploy": false,
       "easAddress": "0xC2679fBD37d54388Ce493F1DB75320D236e1815e",
       "schema": "0xe2636f31239f7948afdd9a9c477048b7fc2a089c347af60e3aa1251e5bf63e5c",
       "attester": "attester-address"
+    },
+    "WorldIDGatekeeper": {
+      "deploy": true,
+      "worldIDAddress":"0x42FF98C4E85212a5D31358ACbFe76a621b50fC02",
+      "appID": "app_staging_632c35d24a7e960c82df9e560328de0a",
+      "action": "signup"
     },
     "MACI": {
       "stateTreeDepth": 10,
